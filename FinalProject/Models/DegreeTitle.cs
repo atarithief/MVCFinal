@@ -12,16 +12,17 @@ namespace FinalProject.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class VaChapter
+    public partial class DegreeTitle
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public VaChapter()
+        public DegreeTitle()
         {
             this.Students = new HashSet<Student>();
         }
     
-        public int ChapterId { get; set; }
-        public string ChapterName { get; set; }
+        public int DegreeId { get; set; }
+        public string DegreeName { get; set; }
+        public string Epgm { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Student> Students { get; set; }
