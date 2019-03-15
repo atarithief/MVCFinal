@@ -176,6 +176,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DegreeTitlesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
@@ -184,33 +185,36 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DegreeTitle.cs">
-      <DependentUpon>VeteranDB.tt</DependentUpon>
+      <DependentUpon>VeteransDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DegreeType.cs">
+      <DependentUpon>VeteransDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Student.cs">
-      <DependentUpon>VeteranDB.tt</DependentUpon>
+      <DependentUpon>VeteransDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>VeteranDB.tt</DependentUpon>
+      <DependentUpon>VeteransDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VaChapter.cs">
-      <DependentUpon>VeteranDB.tt</DependentUpon>
+      <DependentUpon>VeteransDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VeteranDB.Context.cs">
+    <Compile Include="Models\VeteransDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>VeteranDB.Context.tt</DependentUpon>
+      <DependentUpon>VeteransDB.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VeteranDB.cs">
+    <Compile Include="Models\VeteransDB.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>VeteranDB.tt</DependentUpon>
+      <DependentUpon>VeteransDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VeteranDB.Designer.cs">
+    <Compile Include="Models\VeteransDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>VeteranDB.edmx</DependentUpon>
+      <DependentUpon>VeteransDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -224,24 +228,26 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\VeteranDB.Context.tt">
+    <Content Include="Images\flag.jpg" />
+    <Content Include="Images\vets.jpeg" />
+    <Content Include="Models\VeteransDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>VeteranDB.edmx</DependentUpon>
-      <LastGenOutput>VeteranDB.Context.cs</LastGenOutput>
+      <DependentUpon>VeteransDB.edmx</DependentUpon>
+      <LastGenOutput>VeteransDB.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\VeteranDB.tt">
+    <Content Include="Models\VeteransDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>VeteranDB.edmx</DependentUpon>
-      <LastGenOutput>VeteranDB.cs</LastGenOutput>
+      <DependentUpon>VeteransDB.edmx</DependentUpon>
+      <LastGenOutput>VeteransDB.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\VeteranDB.edmx">
+    <EntityDeploy Include="Models\VeteransDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>VeteranDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>VeteransDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\VeteranDB.edmx.diagram">
-      <DependentUpon>VeteranDB.edmx</DependentUpon>
+    <Content Include="Models\VeteransDB.edmx.diagram">
+      <DependentUpon>VeteransDB.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -293,6 +299,11 @@
     <Content Include="Views\Students\Details.cshtml" />
     <Content Include="Views\Students\Edit.cshtml" />
     <Content Include="Views\Students\Index.cshtml" />
+    <Content Include="Views\DegreeTitles\Create.cshtml" />
+    <Content Include="Views\DegreeTitles\Delete.cshtml" />
+    <Content Include="Views\DegreeTitles\Details.cshtml" />
+    <Content Include="Views\DegreeTitles\Edit.cshtml" />
+    <Content Include="Views\DegreeTitles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

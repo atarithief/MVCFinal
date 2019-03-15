@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Student Veterans</h2>
+<h2>Current Veteran Students</h2>
 
 <p>
     @Html.ActionLink("Add New", "Create")
@@ -13,34 +13,41 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayName("FIRST")
+            @Html.DisplayNameFor(model => model.QuarterStart)
         </th>
         <th>
-            @Html.DisplayName("MIDDLE")
+            @Html.DisplayNameFor(model => model.StudentNumber)
         </th>
         <th>
-            @Html.DisplayName("LAST")
+            @Html.DisplayNameFor(model => model.FirstName)
         </th>
         <th>
-            @Html.DisplayName("SEX")
+            @Html.DisplayNameFor(model => model.MiddleName)
         </th>
         <th>
-            @Html.DisplayName("EPGM")
+            @Html.DisplayNameFor(model => model.LastName)
         </th>
         <th>
-            @Html.DisplayName("DEGREE TITLE")
+            @Html.DisplayNameFor(model => model.Gender)
         </th>
         <th>
-            @Html.DisplayName("VA BENEFITS")
+            @Html.DisplayNameFor(model => model.DOB)
         </th>
         <th>
-            @Html.DisplayName("PHONE NUMBER")
+            @Html.DisplayNameFor(model => model.DegreeType1.DegreeType1)
         </th>
         <th>
-            @Html.DisplayName("ALT NUMBER")
+            @Html.DisplayNameFor(model => model.DegreeTitle.DegreeName)
         </th>
         <th>
-            @Html.DisplayName("EMAIL")
+            @Html.DisplayNameFor(model => model.VaChapter1.ChapterName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
         </th>
         <th></th>
         <th></th>
@@ -49,6 +56,12 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.QuarterStart)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentNumber)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.FirstName)
         </td>
@@ -59,10 +72,13 @@
             @Html.DisplayFor(modelItem => item.LastName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Sex)
+            @Html.DisplayFor(modelItem => item.Gender)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DegreeTitle.Epgm)
+            @Html.DisplayFor(modelItem => item.DOB)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DegreeType1.DegreeType1)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DegreeTitle.DegreeName)
@@ -74,20 +90,18 @@
             @Html.DisplayFor(modelItem => item.PhoneNumber)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.AltPhone)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id = item.StudentId })
+            @Html.ActionLink("Details", "Details", new { id = item.StudentId }) |
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.StudentId })
+            @Html.ActionLink("Edit", "Edit", new { id = item.StudentId }) |
         </td>
         <td>
             @Html.ActionLink("Delete", "Delete", new { id = item.StudentId })
         </td>
+
     </tr>
 }
 

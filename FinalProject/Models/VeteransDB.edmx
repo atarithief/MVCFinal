@@ -4,35 +4,44 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="VeteransModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="VeteransDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="DegreeTitles">
           <Key>
             <PropertyRef Name="DegreeId" />
           </Key>
           <Property Name="DegreeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DegreeName" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Epgm" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DegreeTypes">
+          <Key>
+            <PropertyRef Name="TypeId" />
+          </Key>
+          <Property Name="TypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DegreeType" Type="varchar" MaxLength="6" Nullable="false" />
         </EntityType>
         <EntityType Name="Students">
           <Key>
             <PropertyRef Name="StudentId" />
           </Key>
           <Property Name="StudentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuarterStart" Type="varchar" MaxLength="5" />
+          <Property Name="StudentNumber" Type="varchar" MaxLength="9" />
           <Property Name="FirstName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="MiddleName" Type="varchar" MaxLength="100" />
           <Property Name="LastName" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Sex" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="DOB" Type="date" Nullable="false" />
-          <Property Name="Epgm" Type="varchar" MaxLength="10" />
+          <Property Name="DegreeType" Type="int" />
           <Property Name="Degree" Type="int" />
           <Property Name="VaChapter" Type="int" />
-          <Property Name="HomeAdress" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Adress" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="City" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="HomeState" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="State" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="ZipCode" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="PhoneNumber" Type="varchar" MaxLength="12" Nullable="false" />
           <Property Name="AltPhone" Type="varchar" MaxLength="12" />
           <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="AltEmail" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -51,7 +60,7 @@
           <Property Name="ChapterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ChapterName" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Students__Degree__3B75D760">
+        <Association Name="FK__Students__Degree__4222D4EF">
           <End Role="DegreeTitles" Type="Self.DegreeTitles" Multiplicity="0..1" />
           <End Role="Students" Type="Self.Students" Multiplicity="*" />
           <ReferentialConstraint>
@@ -60,6 +69,18 @@
             </Principal>
             <Dependent Role="Students">
               <PropertyRef Name="Degree" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DegreeType">
+          <End Role="DegreeTypes" Type="Self.DegreeTypes" Multiplicity="0..1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DegreeTypes">
+              <PropertyRef Name="TypeId" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="DegreeType" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -75,13 +96,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="VeteransModelStoreContainer">
+        <EntityContainer Name="VeteransDBModelStoreContainer">
           <EntitySet Name="DegreeTitles" EntityType="Self.DegreeTitles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DegreeTypes" EntityType="Self.DegreeTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VaChapter" EntityType="Self.VaChapter" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Students__Degree__3B75D760" Association="Self.FK__Students__Degree__3B75D760">
+          <AssociationSet Name="FK__Students__Degree__4222D4EF" Association="Self.FK__Students__Degree__4222D4EF">
             <End Role="DegreeTitles" EntitySet="DegreeTitles" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DegreeType" Association="Self.FK_DegreeType">
+            <End Role="DegreeTypes" EntitySet="DegreeTypes" />
             <End Role="Students" EntitySet="Students" />
           </AssociationSet>
           <AssociationSet Name="FK_VaChapter" Association="Self.FK_VaChapter">
@@ -93,37 +119,48 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="VeteransModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="VeteransDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="DegreeTitle">
           <Key>
             <PropertyRef Name="DegreeId" />
           </Key>
           <Property Name="DegreeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DegreeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Epgm" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Students" Relationship="Self.FK__Students__Degree__3B75D760" FromRole="DegreeTitles" ToRole="Students" />
+          <NavigationProperty Name="Students" Relationship="Self.FK__Students__Degree__4222D4EF" FromRole="DegreeTitles" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="DegreeType">
+          <Key>
+            <PropertyRef Name="TypeId" />
+          </Key>
+          <Property Name="TypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DegreeType1" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Students" Relationship="Self.FK_DegreeType" FromRole="DegreeTypes" ToRole="Students" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
             <PropertyRef Name="StudentId" />
           </Key>
           <Property Name="StudentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuarterStart" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="StudentNumber" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
           <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Sex" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Epgm" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DegreeType" Type="Int32" />
           <Property Name="Degree" Type="Int32" />
           <Property Name="VaChapter" Type="Int32" />
-          <Property Name="HomeAdress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Adress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="City" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="HomeState" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AltPhone" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="DegreeTitle" Relationship="Self.FK__Students__Degree__3B75D760" FromRole="Students" ToRole="DegreeTitles" />
+          <Property Name="AltEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DegreeTitle" Relationship="Self.FK__Students__Degree__4222D4EF" FromRole="Students" ToRole="DegreeTitles" />
+          <NavigationProperty Name="DegreeType1" Relationship="Self.FK_DegreeType" FromRole="Students" ToRole="DegreeTypes" />
           <NavigationProperty Name="VaChapter1" Relationship="Self.FK_VaChapter" FromRole="Students" ToRole="VaChapter" />
         </EntityType>
         <EntityType Name="sysdiagram">
@@ -144,7 +181,7 @@
           <Property Name="ChapterName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Students" Relationship="Self.FK_VaChapter" FromRole="VaChapter" ToRole="Students" />
         </EntityType>
-        <Association Name="FK__Students__Degree__3B75D760">
+        <Association Name="FK__Students__Degree__4222D4EF">
           <End Role="DegreeTitles" Type="Self.DegreeTitle" Multiplicity="0..1" />
           <End Role="Students" Type="Self.Student" Multiplicity="*" />
           <ReferentialConstraint>
@@ -153,6 +190,18 @@
             </Principal>
             <Dependent Role="Students">
               <PropertyRef Name="Degree" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DegreeType">
+          <End Role="DegreeTypes" Type="Self.DegreeType" Multiplicity="0..1" />
+          <End Role="Students" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DegreeTypes">
+              <PropertyRef Name="TypeId" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="DegreeType" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -168,13 +217,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="VeteransEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="VeteransDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="DegreeTitles" EntityType="Self.DegreeTitle" />
+          <EntitySet Name="DegreeTypes" EntityType="Self.DegreeType" />
           <EntitySet Name="Students" EntityType="Self.Student" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="VaChapters" EntityType="Self.VaChapter" />
-          <AssociationSet Name="FK__Students__Degree__3B75D760" Association="Self.FK__Students__Degree__3B75D760">
+          <AssociationSet Name="FK__Students__Degree__4222D4EF" Association="Self.FK__Students__Degree__4222D4EF">
             <End Role="DegreeTitles" EntitySet="DegreeTitles" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DegreeType" Association="Self.FK_DegreeType">
+            <End Role="DegreeTypes" EntitySet="DegreeTypes" />
             <End Role="Students" EntitySet="Students" />
           </AssociationSet>
           <AssociationSet Name="FK_VaChapter" Association="Self.FK_VaChapter">
@@ -187,40 +241,50 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="VeteransModelStoreContainer" CdmEntityContainer="VeteransEntities">
+        <EntityContainerMapping StorageEntityContainer="VeteransDBModelStoreContainer" CdmEntityContainer="VeteransDBEntities">
           <EntitySetMapping Name="DegreeTitles">
-            <EntityTypeMapping TypeName="VeteransModel.DegreeTitle">
+            <EntityTypeMapping TypeName="VeteransDBModel.DegreeTitle">
               <MappingFragment StoreEntitySet="DegreeTitles">
                 <ScalarProperty Name="DegreeId" ColumnName="DegreeId" />
                 <ScalarProperty Name="DegreeName" ColumnName="DegreeName" />
-                <ScalarProperty Name="Epgm" ColumnName="Epgm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DegreeTypes">
+            <EntityTypeMapping TypeName="VeteransDBModel.DegreeType">
+              <MappingFragment StoreEntitySet="DegreeTypes">
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="DegreeType1" ColumnName="DegreeType" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Students">
-            <EntityTypeMapping TypeName="VeteransModel.Student">
+            <EntityTypeMapping TypeName="VeteransDBModel.Student">
               <MappingFragment StoreEntitySet="Students">
                 <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="QuarterStart" ColumnName="QuarterStart" />
+                <ScalarProperty Name="StudentNumber" ColumnName="StudentNumber" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="DOB" ColumnName="DOB" />
-                <ScalarProperty Name="Epgm" ColumnName="Epgm" />
+                <ScalarProperty Name="DegreeType" ColumnName="DegreeType" />
                 <ScalarProperty Name="Degree" ColumnName="Degree" />
                 <ScalarProperty Name="VaChapter" ColumnName="VaChapter" />
-                <ScalarProperty Name="HomeAdress" ColumnName="HomeAdress" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
                 <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="HomeState" ColumnName="HomeState" />
+                <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="AltPhone" ColumnName="AltPhone" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="AltEmail" ColumnName="AltEmail" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="VeteransModel.sysdiagram">
+            <EntityTypeMapping TypeName="VeteransDBModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -231,7 +295,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="VaChapters">
-            <EntityTypeMapping TypeName="VeteransModel.VaChapter">
+            <EntityTypeMapping TypeName="VeteransDBModel.VaChapter">
               <MappingFragment StoreEntitySet="VaChapter">
                 <ScalarProperty Name="ChapterId" ColumnName="ChapterId" />
                 <ScalarProperty Name="ChapterName" ColumnName="ChapterName" />

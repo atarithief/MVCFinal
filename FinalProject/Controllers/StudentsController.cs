@@ -12,12 +12,12 @@ namespace FinalProject.Controllers
 {
     public class StudentsController : Controller
     {
-        private VeteransEntities db = new VeteransEntities();
+        private VeteransDBEntities db = new VeteransDBEntities();
 
         // GET: Students
         public ActionResult Index()
         {
-            var students = db.Students.Include(s => s.DegreeTitle).Include(s => s.VaChapter1);
+            var students = db.Students.Include(s => s.DegreeTitle).Include(s => s.DegreeType1).Include(s => s.VaChapter1);
             return View(students.ToList());
         }
 
@@ -40,6 +40,7 @@ namespace FinalProject.Controllers
         public ActionResult Create()
         {
             ViewBag.Degree = new SelectList(db.DegreeTitles, "DegreeId", "DegreeName");
+            ViewBag.DegreeType = new SelectList(db.DegreeTypes, "TypeId", "DegreeType1");
             ViewBag.VaChapter = new SelectList(db.VaChapters, "ChapterId", "ChapterName");
             return View();
         }
@@ -49,7 +50,7 @@ namespace FinalProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StudentId,FirstName,MiddleName,LastName,Sex,DOB,Epgm,Degree,VaChapter,HomeAdress,City,HomeState,ZipCode,PhoneNumber,AltPhone,Email")] Student student)
+        public ActionResult Create([Bind(Include = "StudentId,QuarterStart,StudentNumber,FirstName,MiddleName,LastName,Gender,DOB,DegreeType,Degree,VaChapter,Adress,City,State,ZipCode,PhoneNumber,AltPhone,Email,AltEmail")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -59,6 +60,7 @@ namespace FinalProject.Controllers
             }
 
             ViewBag.Degree = new SelectList(db.DegreeTitles, "DegreeId", "DegreeName", student.Degree);
+            ViewBag.DegreeType = new SelectList(db.DegreeTypes, "TypeId", "DegreeType1", student.DegreeType);
             ViewBag.VaChapter = new SelectList(db.VaChapters, "ChapterId", "ChapterName", student.VaChapter);
             return View(student);
         }
@@ -76,6 +78,7 @@ namespace FinalProject.Controllers
                 return HttpNotFound();
             }
             ViewBag.Degree = new SelectList(db.DegreeTitles, "DegreeId", "DegreeName", student.Degree);
+            ViewBag.DegreeType = new SelectList(db.DegreeTypes, "TypeId", "DegreeType1", student.DegreeType);
             ViewBag.VaChapter = new SelectList(db.VaChapters, "ChapterId", "ChapterName", student.VaChapter);
             return View(student);
         }
@@ -85,7 +88,7 @@ namespace FinalProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "StudentId,FirstName,MiddleName,LastName,Sex,DOB,Epgm,Degree,VaChapter,HomeAdress,City,HomeState,ZipCode,PhoneNumber,AltPhone,Email")] Student student)
+        public ActionResult Edit([Bind(Include = "StudentId,QuarterStart,StudentNumber,FirstName,MiddleName,LastName,Gender,DOB,DegreeType,Degree,VaChapter,Adress,City,State,ZipCode,PhoneNumber,AltPhone,Email,AltEmail")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -94,6 +97,7 @@ namespace FinalProject.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Degree = new SelectList(db.DegreeTitles, "DegreeId", "DegreeName", student.Degree);
+            ViewBag.DegreeType = new SelectList(db.DegreeTypes, "TypeId", "DegreeType1", student.DegreeType);
             ViewBag.VaChapter = new SelectList(db.VaChapters, "ChapterId", "ChapterName", student.VaChapter);
             return View(student);
         }

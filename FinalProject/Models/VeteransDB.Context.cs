@@ -13,10 +13,10 @@ namespace FinalProject.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class VeteransEntities : DbContext
+    public partial class VeteransDBEntities : DbContext
     {
-        public VeteransEntities()
-            : base("name=VeteransEntities")
+        public VeteransDBEntities()
+            : base("name=VeteransDBEntities")
         {
         }
     
@@ -26,6 +26,7 @@ namespace FinalProject.Models
         }
     
         public virtual DbSet<DegreeTitle> DegreeTitles { get; set; }
+        public virtual DbSet<DegreeType> DegreeTypes { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<VaChapter> VaChapters { get; set; }

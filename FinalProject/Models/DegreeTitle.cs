@@ -11,7 +11,8 @@ namespace FinalProject.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class DegreeTitle
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,8 +22,10 @@ namespace FinalProject.Models
         }
     
         public int DegreeId { get; set; }
+
+        [Required]
+        [Display(Name = "Degree Title")]
         public string DegreeName { get; set; }
-        public string Epgm { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Student> Students { get; set; }

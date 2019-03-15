@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Kris\Documents\Schoolwork\Winter2019\ServerSideScripting\FinalProject\FinalProject\Models\VeteranDB.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Kris\Documents\Schoolwork\Winter2019\ServerSideScripting\FinalProject\FinalProject\Models\VeteransDB.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
