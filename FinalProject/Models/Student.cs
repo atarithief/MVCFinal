@@ -39,6 +39,7 @@ namespace FinalProject.Models
         public string Gender { get; set; }
 
         [Required]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public System.DateTime DOB { get; set; }
 
         [Display(Name = "Degree Type")]
@@ -79,7 +80,9 @@ namespace FinalProject.Models
         [EmailAddress]
         [Display(Name = "Alt Email")]
         public string AltEmail { get; set; }
-    
+
+
+
         [Display(Name = "Degree Title")]
         public virtual DegreeTitle DegreeTitle { get; set; }
 
