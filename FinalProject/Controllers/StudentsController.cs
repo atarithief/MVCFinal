@@ -15,9 +15,34 @@ namespace FinalProject.Controllers
         private VeteransDBEntities db = new VeteransDBEntities();
 
         // GET: Students
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
-            var students = db.Students.Include(s => s.DegreeTitle).Include(s => s.DegreeType1).Include(s => s.VaChapter1);
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DegreeSortParm = sortOrder == "Degree" ? "degree_desc" : "Degree";
+            ViewBag.BenefitsSortParm = sortOrder == "Benefits" ? "benefits_desc" : "Benefits";
+            var students = from s in db.Students.Include(s => s.DegreeTitle).Include(s => s.DegreeType1).Include(s => s.VaChapter1)
+                           select s;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    students = students.OrderByDescending(s => s.LastName);
+                    break;
+                case "Degree":
+                    students = students.OrderBy(s => s.Degree);
+                    break;
+                case "degree_desc":
+                    students = students.OrderByDescending(s => s.Degree);
+                    break;
+                case "benefits_desc":
+                    students = students.OrderByDescending(s => s.VaChapter);
+                    break;
+                case "Benefits":
+                    students = students.OrderBy(s => s.VaChapter);
+                    break;
+                default:
+                    students = students.OrderBy(s => s.LastName);
+                    break;
+            }
             return View(students.ToList());
         }
 

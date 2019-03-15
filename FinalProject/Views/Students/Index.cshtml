@@ -25,7 +25,7 @@
             @Html.DisplayNameFor(model => model.MiddleName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.ActionLink("Last", "Index", new { sortOrder = ViewBag.NameSortParm})
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Gender)
@@ -37,10 +37,12 @@
             @Html.DisplayNameFor(model => model.DegreeType1.DegreeType1)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DegreeTitle.DegreeName)
+            @Html.ActionLink("Degree Title", "Index", new { sortOrder = ViewBag.DegreeSortParm })
+            @*@Html.DisplayNameFor(model => model.DegreeTitle.DegreeName)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.VaChapter1.ChapterName)
+            @Html.ActionLink("Benefits", "Index", new { sortOrder = ViewBag.BenefitsSortParm })
+            @*@Html.DisplayNameFor(model => model.VaChapter1.ChapterName)*@
         </th>
 
         <th>
